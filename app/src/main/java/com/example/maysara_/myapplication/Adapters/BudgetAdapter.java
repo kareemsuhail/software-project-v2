@@ -31,7 +31,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BudgetActivity.moveToCategories(context,  budgets.get(holder.getAdapterPosition()).getId().intValue());
+                BudgetActivity.moveToCategories(context,  budgets.get(holder.getAdapterPosition()).getId());
             }
         });
         return holder;

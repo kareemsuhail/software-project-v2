@@ -10,7 +10,9 @@ public class Category  {
     private String name;
     private int budgetId;
     private int limitAmount;
+    public Category(){
 
+    }
     public Category(String name, int budget, int limitAmount) {
         this.name = name;
         this.budgetId = budget ;

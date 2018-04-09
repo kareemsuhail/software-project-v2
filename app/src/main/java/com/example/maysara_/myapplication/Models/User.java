@@ -11,6 +11,9 @@ public class User {
     private String phone;
     private int gender;
 
+    public User() {
+    }
+
     public User(String name, String phone, int gender) {
         this.name = name;
         this.phone = phone;

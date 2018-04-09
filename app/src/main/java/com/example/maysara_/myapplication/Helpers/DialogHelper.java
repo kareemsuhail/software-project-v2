@@ -55,7 +55,7 @@ public class DialogHelper {
                 }
                 String name = nameEd.getText().toString();
                 int balance = Integer.parseInt(balanceEd.getText().toString());
-                Budget newBudget = new Budget(name, new Date(), new Date(), balance, balance);
+                Budget newBudget = new Budget(name, "", "", balance, balance);
                 db_helper.createBudget(newBudget);
                 budgets.add(newBudget);
                 budgetList.invalidate();

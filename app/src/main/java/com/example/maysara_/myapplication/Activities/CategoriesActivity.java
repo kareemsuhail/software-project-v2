@@ -18,7 +18,6 @@ import com.example.maysara_.myapplication.Models.Category;
 import com.example.maysara_.myapplication.R;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.orm.SugarContext;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +50,7 @@ public class CategoriesActivity extends AppCompatActivity {
         new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
-        SugarContext.init(this);
+
 
         budgetId = (getIntent()).getIntExtra("budget", -1);
 

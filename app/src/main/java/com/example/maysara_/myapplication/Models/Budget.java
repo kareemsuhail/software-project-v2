@@ -13,6 +13,9 @@ public class Budget  {
     private String endDate;
     private float startBalance;
     private float balance;
+    public Budget(){
+
+    }
 
     public Budget(String name, String startDate, String endDate, float startBalance, float balance) {
         this.name = name;

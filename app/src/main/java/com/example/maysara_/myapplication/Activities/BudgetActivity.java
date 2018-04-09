@@ -18,7 +18,7 @@ import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.R;
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.orm.SugarContext;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +46,7 @@ public class BudgetActivity extends AppCompatActivity {
         new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
-        SugarContext.init(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Budgets");
         setSupportActionBar(toolbar);

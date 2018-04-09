@@ -10,7 +10,9 @@ public class Expense  {
     private double amount;
     private int categoryId;
     private String date;
+    public Expense(){
 
+    }
     public Expense(String label, double amount, int category, String date) {
         this.label = label;
         this.amount = amount;

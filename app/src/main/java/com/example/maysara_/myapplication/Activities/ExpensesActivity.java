@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.orm.SugarContext;
+
 
 import okhttp3.OkHttpClient;
 
@@ -18,6 +18,6 @@ public class ExpensesActivity extends AppCompatActivity {
         new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
-        SugarContext.init(this);
+
     }
 }
