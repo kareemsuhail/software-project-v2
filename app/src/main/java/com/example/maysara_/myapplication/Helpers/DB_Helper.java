@@ -54,7 +54,9 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
 
     @Override
     public void saveUser(User user) {
-
+        ContentValues contentValues = user.getContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert("user",null,contentValues);
 
     }
 
@@ -75,7 +77,7 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
 
     @Override
     public Category[] getCategoriesForBudget(int id) {
-       return new Category[]{};
+            return new Category[]{};
     }
 
 
@@ -97,31 +99,52 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
 
     @Override
     public Budget removeBudget(int id) {
-       return new Budget();
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query("budget", BUDGET_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        cursor.moveToFirst();
+        db.delete("budget", "ID = ?", new String[]{id+""});
+        return Budget.buildFromCursor(cursor);
     }
 
     @Override
     public void createCategory(Category category) {
-
+        ContentValues contentValues = category.getContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert("category",null,contentValues);
 
     }
 
     @Override
     public Category[] getAllCategories() {
-
-        return new Category[]{};
+        SQLiteDatabase db =getReadableDatabase();
+        Cursor cursor = db.rawQuery(QueryBuilder.selectAll("category"),null);
+        ArrayList<Category> categories = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            categories.add(Category.buildFromCursor(cursor));
+            cursor.moveToNext();
+        }
+        Category[] categoriesArr = new Category[categories.size()];
+        categoriesArr = categories.toArray(categoriesArr);
+        return categoriesArr ;
     }
 
     @Override
     public Category getCategory(int id) {
-        return  new Category();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("category", BUDGET_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        cursor.moveToFirst();
+        return Category.buildFromCursor(cursor);
 
     }
 
     @Override
     public Category removeCategory(int id) {
-
-        return new Category();
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query("category", BUDGET_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        cursor.moveToFirst();
+        db.delete("category", "ID = ?", new String[]{id+""});
+        return Category.buildFromCursor(cursor);
     }
 
 
