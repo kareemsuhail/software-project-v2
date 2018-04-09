@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/newBudgetName"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_budget_name"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/newBudgetBalance"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_budget_balance"
+        android:inputType="number"
+
+        />
+
+    <Button
+        android:id="@+id/addNewBudget"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_dark"
+        android:text="@string/add_new_budget"
+        android:textColor="@android:color/background_light" />
+</LinearLayout>
