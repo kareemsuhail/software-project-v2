@@ -35,21 +35,21 @@ public class ProfileActivity extends AppCompatActivity {
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
         SugarContext.init(this);
-        final EditText name = findViewById(R.id.name);
-        final EditText phone = findViewById(R.id.phone);
-        Button save = findViewById(R.id.profile_data);
-
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!DialogHelper.validateInput(name, phone)) {
-                    DialogHelper.displayError("Please enter valid data", ProfileActivity.this);
-                    return;
-                }
-                controller.CreateProfile(name.getText().toString(), 1, phone.getText().toString());
-                moveToBudgetActivity();
-            }
-        });
+//        final EditText name = findViewById(R.id.name);
+//        final EditText phone = findViewById(R.id.phone);
+//        Button save = findViewById(R.id.profile_data);
+//
+//        save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (!DialogHelper.validateInput(name, phone)) {
+//                    DialogHelper.displayError("Please enter valid data", ProfileActivity.this);
+//                    return;
+//                }
+//                controller.CreateProfile(name.getText().toString(), 1, phone.getText().toString());
+//                moveToBudgetActivity();
+//            }
+//        });
 
     }
 

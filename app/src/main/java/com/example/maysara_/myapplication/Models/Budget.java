@@ -1,18 +1,20 @@
 package com.example.maysara_.myapplication.Models;
 
-import com.orm.SugarRecord;
+import android.content.ContentValues;
+import android.database.Cursor;
+
 
 import java.util.Date;
 
-public class Budget  extends SugarRecord{
-
+public class Budget  {
+    private int id ;
     private String name;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
     private float startBalance;
     private float balance;
 
-    public Budget(String name, Date startDate, Date endDate, float startBalance, float balance) {
+    public Budget(String name, String startDate, String endDate, float startBalance, float balance) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -20,6 +22,35 @@ public class Budget  extends SugarRecord{
         this.balance = balance;
     }
 
+    public Budget(int id, String name, String startDate, String endDate, float startBalance, float balance) {
+        this.id = id;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.startBalance = startBalance;
+        this.balance = balance;
+    }
+
+    public ContentValues getContentValues(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name",this.name);
+        contentValues.put("startDate",this.startDate);
+        contentValues.put("endDate",this.endDate);
+        contentValues.put("startBalance",this.startBalance);
+        contentValues.put("balance",this.balance);
+        return contentValues ;
+
+    }
+    public static Budget buildFromCursor(Cursor cursor){
+        int id = cursor.getInt(cursor.getColumnIndex("ID"));
+        String name  = cursor.getString(cursor.getColumnIndex("name"));
+        String startDate  = cursor.getString(cursor.getColumnIndex("startDate"));
+        String endDate  = cursor.getString(cursor.getColumnIndex("endDate"));
+        float startBalance = cursor.getFloat(cursor.getColumnIndex("startBalance"));
+        float balance = cursor.getFloat(cursor.getColumnIndex("balance"));
+        return new Budget(id, name,startDate,endDate,startBalance,balance);
+
+    }
     public String getName() {
         return name;
     }
@@ -28,19 +59,19 @@ public class Budget  extends SugarRecord{
         this.name = name;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
@@ -58,5 +89,9 @@ public class Budget  extends SugarRecord{
 
     public void setBalance(float balance) {
         this.balance = balance;
+    }
+
+    public int getId() {
+        return id;
     }
 }

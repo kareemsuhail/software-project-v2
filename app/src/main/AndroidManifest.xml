@@ -60,10 +60,7 @@
                 <action android:name="android.intent.action.DEFAULT" />
             </intent-filter>
         </activity>
-        <meta-data android:name="DATABASE" android:value="cash_keeper.db" />
-        <meta-data android:name="VERSION" android:value="15" />
-        <meta-data android:name="QUERY_LOG" android:value="true" />
-        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.maysara_.myapplication.Models" />
+
     </application>
 
 </manifest>

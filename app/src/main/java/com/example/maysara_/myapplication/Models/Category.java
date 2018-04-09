@@ -1,20 +1,48 @@
 package com.example.maysara_.myapplication.Models;
 
-import com.orm.SugarRecord;
 
-public class Category extends SugarRecord {
+import android.content.ContentValues;
+import android.database.Cursor;
 
+public class Category  {
+
+    private int id;
     private String name;
-    private Budget budget;
-    private int limit;
+    private int budgetId;
+    private int limitAmount;
 
-    public Category(String name, int budget, int limit) {
+    public Category(String name, int budget, int limitAmount) {
         this.name = name;
-        this.budget = Budget.findById(Budget.class,budget);
-        this.limit = limit;
+        this.budgetId = budget ;
+        this.limitAmount = limitAmount;
     }
 
+    public Category(int id, String name, int budgetId, int limitAmount) {
+        this.id = id;
+        this.name = name;
+        this.budgetId = budgetId;
+        this.limitAmount = limitAmount;
+    }
+    public ContentValues getContentValues(){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name",this.name);
+        contentValues.put("budgetId",this.budgetId);
+        contentValues.put("limitAmount",this.limitAmount);
+        return contentValues ;
 
+    }
+    public static Category buildFromCursor(Cursor cursor){
+        int id = cursor.getInt(cursor.getColumnIndex("ID"));
+        String name  = cursor.getString(cursor.getColumnIndex("name"));
+        int budgetId  = cursor.getInt(cursor.getColumnIndex("budgetId"));
+        int limitAmount  = cursor.getInt(cursor.getColumnIndex("limitAmount"));
+        return new Category(id, name,budgetId,limitAmount);
+
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -24,19 +52,19 @@ public class Category extends SugarRecord {
         this.name = name;
     }
 
-    public Budget getBudget() {
-        return budget;
+    public int getBudgetID() {
+        return budgetId;
     }
 
-    public void setBudget(Budget budget) {
-        this.budget = budget;
+    public void setBudgetID(int budgetId) {
+        this.budgetId = budgetId;
     }
 
     public int getLimit() {
-        return limit;
+        return limitAmount;
     }
 
-    public void setLimit(int limit) {
-        this.limit = limit;
+    public void setLimit(int limitAmount) {
+        this.limitAmount = limitAmount;
     }
 }
