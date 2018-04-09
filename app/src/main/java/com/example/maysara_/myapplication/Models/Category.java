@@ -36,7 +36,7 @@ public class Category  {
     public static Category buildFromCursor(Cursor cursor){
         int id = cursor.getInt(cursor.getColumnIndex("ID"));
         String name  = cursor.getString(cursor.getColumnIndex("name"));
-        int budgetId  = cursor.getInt(cursor.getColumnIndex("budgetId"));
+        int budgetId  = cursor.getInt(cursor.getColumnIndex("budgetID"));
         int limitAmount  = cursor.getInt(cursor.getColumnIndex("limitAmount"));
         return new Category(id, name,budgetId,limitAmount);
 

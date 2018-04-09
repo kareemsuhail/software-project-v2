@@ -18,7 +18,7 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     private static  final int DB_VERSION  = 1;
     private static  final String DB_NAME = "cashDB.db";
     private static  final String[] BUDGET_TABLE_COLUMNS = {"ID","name","startDate","endDate","startBalance","balance"};
-    private static  final String[] CATEGORY_TABLE_COLUMNS = {"ID","name","budgetID","limit"};
+    private static  final String[] CATEGORY_TABLE_COLUMNS = {"ID","name","budgetID","limitAmount"};
     private static  final String[] EXPENSE_TABLE_COLUMNS = {"ID","label","amount","categoryID","date"};
     private static  final String[] USER_TABLE_COLUMNS = {"ID","name","phone","gender"};
 
@@ -47,7 +47,7 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     public User getUser(int id) {
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("user", BUDGET_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("user", USER_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
         cursor.moveToFirst();
         return User.buildFromCursor(cursor);
     }
@@ -77,7 +77,17 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
 
     @Override
     public Category[] getCategoriesForBudget(int id) {
-            return new Category[]{};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "budgetID = ?", new String[] {id+"" }, null, null, null);
+        ArrayList<Category> categories = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            categories.add(Category.buildFromCursor(cursor));
+            cursor.moveToNext();
+        }
+        Category[] categoriesArr = new Category[categories.size()];
+        categoriesArr = categories.toArray(categoriesArr);
+        return categoriesArr ;
     }
 
 
@@ -132,7 +142,7 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     @Override
     public Category getCategory(int id) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("category", BUDGET_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
         cursor.moveToFirst();
         return Category.buildFromCursor(cursor);
 
@@ -141,7 +151,7 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     @Override
     public Category removeCategory(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query("category", BUDGET_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
         cursor.moveToFirst();
         db.delete("category", "ID = ?", new String[]{id+""});
         return Category.buildFromCursor(cursor);
