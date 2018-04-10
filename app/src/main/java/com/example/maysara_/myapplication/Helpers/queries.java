@@ -2,6 +2,7 @@ package com.example.maysara_.myapplication.Helpers;
 
 import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.Models.Category;
+import com.example.maysara_.myapplication.Models.Expense;
 import com.example.maysara_.myapplication.Models.User;
 
 interface queries {
@@ -26,4 +27,12 @@ interface queries {
     Category getCategory(int id);
 
     Category removeCategory(int id);
+
+    void createExpense(Expense expense);
+
+    Expense[] getAllExpenses();
+
+    Expense getExpense(int id);
+
+    Expense removeExpense(int id);
 }

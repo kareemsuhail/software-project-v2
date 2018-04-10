@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.Models.Category;
+import com.example.maysara_.myapplication.Models.Expense;
 import com.example.maysara_.myapplication.Models.User;
 
 import java.lang.reflect.Array;
@@ -155,6 +156,45 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
         cursor.moveToFirst();
         db.delete("category", "ID = ?", new String[]{id+""});
         return Category.buildFromCursor(cursor);
+    }
+
+    @Override
+    public void createExpense(Expense expense) {
+        ContentValues contentValues = expense.getContentValues();
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert("expense",null,contentValues);
+    }
+
+    @Override
+    public Expense[] getAllExpenses() {
+        SQLiteDatabase db =getReadableDatabase();
+        Cursor cursor = db.rawQuery(QueryBuilder.selectAll("expense"),null);
+        ArrayList<Expense> expenses = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            expenses.add(Expense.buildFromCursor(cursor));
+            cursor.moveToNext();
+        }
+        Expense[] expensesArr = new Expense[expenses.size()];
+        expensesArr = expenses.toArray(expensesArr);
+        return expensesArr ;
+    }
+
+    @Override
+    public Expense getExpense(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        cursor.moveToFirst();
+        return Expense.buildFromCursor(cursor);
+    }
+
+    @Override
+    public Expense removeExpense(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        cursor.moveToFirst();
+        db.delete("expense", "ID = ?", new String[]{id+""});
+        return Expense.buildFromCursor(cursor);
     }
 
 
