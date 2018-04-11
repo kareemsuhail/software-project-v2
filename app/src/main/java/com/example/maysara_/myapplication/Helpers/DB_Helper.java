@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DB_Helper extends SQLiteOpenHelper implements queries {
-    private static  final int DB_VERSION  = 1;
+    private static  final int DB_VERSION  = 2;
     private static  final String DB_NAME = "cashDB.db";
     private static  final String[] BUDGET_TABLE_COLUMNS = {"ID","name","startDate","endDate","startBalance","balance"};
     private static  final String[] CATEGORY_TABLE_COLUMNS = {"ID","name","budgetID","limitAmount"};
@@ -195,6 +195,18 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
         cursor.moveToFirst();
         db.delete("expense", "ID = ?", new String[]{id+""});
         return Expense.buildFromCursor(cursor);
+    }
+
+    public void clearDB(){
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS user ");
+        db.execSQL("DROP TABLE IF EXISTS expense ");
+        db.execSQL("DROP TABLE IF EXISTS category ");
+        db.execSQL("DROP TABLE IF EXISTS budget ");
+        db.execSQL("CREATE TABLE budget(ID INTEGER PRIMARY KEY,name TEXT,startDate TEXT,endDate TEXT,startBalance REAL, balance REAL)");
+        db.execSQL("CREATE TABLE category(ID INTEGER PRIMARY KEY,name TEXT,budgetID INTEGER ,limitAmount REAl ,FOREIGN KEY(budgetID) REFERENCES budget(ID))");
+        db.execSQL("CREATE TABLE expense(ID INTEGER PRIMARY KEY,label TEXT,categoryID INTEGER ,amount REAl ,FOREIGN KEY(categoryID) REFERENCES category(ID))");
+        db.execSQL("CREATE TABLE User(ID INTEGER PRIMARY KEY,name TEXT,phone TEXT, gender REAL)");
     }
 
 
