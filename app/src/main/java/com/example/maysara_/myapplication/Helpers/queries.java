@@ -35,4 +35,6 @@ interface queries {
     Expense getExpense(int id);
 
     Expense removeExpense(int id);
+
+    Expense[] getAllExpensesForCategory(int id);
 }

@@ -41,17 +41,15 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category_layout);
+        Stetho.initializeWithDefaults(this);
+        new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor())
+                .build();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Categories");
         setSupportActionBar(toolbar);
 
         db_helper = new DB_Helper(this);
-        Stetho.initializeWithDefaults(this);
-        new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor())
-                .build();
-
-
         budgetId = (getIntent()).getIntExtra("budget", -1);
 
         categoryList = findViewById(R.id.category_list);

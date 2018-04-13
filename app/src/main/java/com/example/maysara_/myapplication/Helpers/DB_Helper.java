@@ -197,6 +197,22 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
         return Expense.buildFromCursor(cursor);
     }
 
+    @Override
+    public Expense[] getAllExpensesForCategory(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "categoryID = ?", new String[] {id+"" }, null, null, null);
+        ArrayList<Expense> expenses = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            expenses.add(Expense.buildFromCursor(cursor));
+            cursor.moveToNext();
+        }
+        Expense[] expensesArr = new Expense[expenses.size()];
+        expensesArr = expenses.toArray(expensesArr);
+        return expensesArr ;
+
+    }
+
     public void clearDB(){
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS user ");

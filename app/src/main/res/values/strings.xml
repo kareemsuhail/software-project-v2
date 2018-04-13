@@ -9,4 +9,5 @@
     <string name="add_new_budget">Add new budget</string>
     <string name="enter_category_name">Enter category name</string>
     <string name="enter_category_limit">Enter Category Limit</string>
+    <string name="my_expeneses">My Expeneses</string>
 </resources>
