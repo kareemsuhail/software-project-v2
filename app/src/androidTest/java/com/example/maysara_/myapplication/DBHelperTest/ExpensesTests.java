@@ -97,6 +97,7 @@ public class ExpensesTests {
     private void createExpensesInstance(int categoryId) {
         helper.createBudget(new Budget());
         helper.createCategory(new Category("category", budgetId, 10));
+
         Expense expense = new Expense(label, amount, categoryId, date);
         helper.createExpense(expense);
     }

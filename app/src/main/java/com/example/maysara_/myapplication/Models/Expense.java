@@ -31,11 +31,14 @@ public class Expense {
     }
 
     public static Expense buildFromCursor(Cursor cursor) {
+        if(cursor.isAfterLast()){
+            return null;
+        }
         int id = cursor.getInt(cursor.getColumnIndex("ID"));
         String label = cursor.getString(cursor.getColumnIndex("label"));
-        int categoryId = cursor.getInt(cursor.getColumnIndex("categoryId"));
-        double amount = cursor.getDouble(cursor.getColumnIndex("amount"));
+        int categoryId = cursor.getInt(cursor.getColumnIndex("categoryID"));
         String date = cursor.getString(cursor.getColumnIndex("date"));
+        double amount = cursor.getDouble(cursor.getColumnIndex("amount"));
         return new Expense(id, label, amount, categoryId, date);
 
     }
@@ -44,6 +47,7 @@ public class Expense {
         ContentValues contentValues = new ContentValues();
         contentValues.put("label", this.label);
         contentValues.put("categoryId", this.categoryId);
+        contentValues.put("date",this.date);
         contentValues.put("amount", this.amount);
         return contentValues;
 

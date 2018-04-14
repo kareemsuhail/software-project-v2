@@ -33,6 +33,9 @@ public class Budget {
     }
 
     public static Budget buildFromCursor(Cursor cursor) {
+        if(cursor.isAfterLast()){
+           return null;
+        }
         int id = cursor.getInt(cursor.getColumnIndex("ID"));
         String name = cursor.getString(cursor.getColumnIndex("name"));
         String startDate = cursor.getString(cursor.getColumnIndex("startDate"));

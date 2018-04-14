@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.Models.Category;
@@ -14,7 +15,7 @@ import com.example.maysara_.myapplication.Models.User;
 import java.util.ArrayList;
 
 public class DB_Helper extends SQLiteOpenHelper implements queries {
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 5;
     private static final String DB_NAME = "cashDB.db";
     private static final String[] BUDGET_TABLE_COLUMNS = {"ID", "name", "startDate", "endDate", "startBalance", "balance"};
     private static final String[] CATEGORY_TABLE_COLUMNS = {"ID", "name", "budgetID", "limitAmount"};
@@ -28,9 +29,15 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE budget(ID INTEGER PRIMARY KEY,name TEXT,startDate TEXT,endDate TEXT,startBalance REAL, balance REAL)");
-        db.execSQL("CREATE TABLE category(ID INTEGER PRIMARY KEY,name TEXT,budgetID INTEGER ,limitAmount REAl ,FOREIGN KEY(budgetID) REFERENCES budget(ID))");
-        db.execSQL("CREATE TABLE expense(ID INTEGER PRIMARY KEY,label TEXT,categoryID INTEGER ,amount REAl ,FOREIGN KEY(categoryID) REFERENCES category(ID))");
+        db.execSQL("CREATE TABLE category(ID INTEGER PRIMARY KEY,name TEXT,budgetID INTEGER ,limitAmount REAl ,FOREIGN KEY(budgetID) REFERENCES budget(ID) ON DELETE CASCADE)");
+        db.execSQL("CREATE TABLE expense(ID INTEGER PRIMARY KEY,label TEXT,categoryID INTEGER ,date TEXT ,amount REAl ,FOREIGN KEY(categoryID) REFERENCES category(ID) ON DELETE CASCADE)");
         db.execSQL("CREATE TABLE User(ID INTEGER PRIMARY KEY,name TEXT,phone TEXT, gender REAL)");
+    }
+
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys = ON;");
     }
 
     @Override
@@ -49,6 +56,8 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query("user", USER_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
+        User temp = User.buildFromCursor(cursor);
+
         return User.buildFromCursor(cursor);
     }
 
@@ -97,6 +106,8 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query("budget", BUDGET_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
+
+
         return Budget.buildFromCursor(cursor);
 
     }
@@ -113,8 +124,9 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.query("budget", BUDGET_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
+        Budget temp = Budget.buildFromCursor(cursor);
         db.delete("budget", "ID = ?", new String[]{id + ""});
-        return Budget.buildFromCursor(cursor);
+        return temp ;
     }
 
     @Override
@@ -220,8 +232,8 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
         db.execSQL("DROP TABLE IF EXISTS category ");
         db.execSQL("DROP TABLE IF EXISTS budget ");
         db.execSQL("CREATE TABLE budget(ID INTEGER PRIMARY KEY,name TEXT,startDate TEXT,endDate TEXT,startBalance REAL, balance REAL)");
-        db.execSQL("CREATE TABLE category(ID INTEGER PRIMARY KEY,name TEXT,budgetID INTEGER ,limitAmount REAl ,FOREIGN KEY(budgetID) REFERENCES budget(ID))");
-        db.execSQL("CREATE TABLE expense(ID INTEGER PRIMARY KEY,label TEXT,categoryID INTEGER ,amount REAl ,FOREIGN KEY(categoryID) REFERENCES category(ID))");
+        db.execSQL("CREATE TABLE category(ID INTEGER PRIMARY KEY,name TEXT,budgetID INTEGER ,limitAmount REAl ,FOREIGN KEY(budgetID) REFERENCES budget(ID) ON DELETE CASCADE)");
+        db.execSQL("CREATE TABLE expense(ID INTEGER PRIMARY KEY,label TEXT,categoryID INTEGER ,date TEXT ,amount REAl ,FOREIGN KEY(categoryID) REFERENCES category(ID) ON DELETE CASCADE)");
         db.execSQL("CREATE TABLE User(ID INTEGER PRIMARY KEY,name TEXT,phone TEXT, gender REAL)");
     }
 
