@@ -6,7 +6,7 @@ import android.database.Cursor;
 
 public class User {
 
-    private  int id ;
+    private int id;
     private String name;
     private String phone;
     private int gender;
@@ -26,23 +26,26 @@ public class User {
         this.phone = phone;
         this.gender = gender;
     }
-    public ContentValues getContentValues(){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name",this.name);
-        contentValues.put("phone",this.phone);
-        contentValues.put("gender",this.gender);
-        return contentValues ;
 
-    }
-    public static User buildFromCursor(Cursor cursor){
+    public static User buildFromCursor(Cursor cursor) {
         int id = cursor.getInt(cursor.getColumnIndex("ID"));
-        String name  = cursor.getString(cursor.getColumnIndex("name"));
-        String phone  = cursor.getString(cursor.getColumnIndex("phone"));
-        int gender  = cursor.getInt(cursor.getColumnIndex("gender"));
+        String name = cursor.getString(cursor.getColumnIndex("name"));
+        String phone = cursor.getString(cursor.getColumnIndex("phone"));
+        int gender = cursor.getInt(cursor.getColumnIndex("gender"));
 
-        return new User(id,name,phone,gender) ;
+        return new User(id, name, phone, gender);
 
     }
+
+    public ContentValues getContentValues() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", this.name);
+        contentValues.put("phone", this.phone);
+        contentValues.put("gender", this.gender);
+        return contentValues;
+
+    }
+
     public int getId() {
         return id;
     }

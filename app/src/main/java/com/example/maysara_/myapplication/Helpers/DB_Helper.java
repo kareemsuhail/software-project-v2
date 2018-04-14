@@ -11,21 +11,20 @@ import com.example.maysara_.myapplication.Models.Category;
 import com.example.maysara_.myapplication.Models.Expense;
 import com.example.maysara_.myapplication.Models.User;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DB_Helper extends SQLiteOpenHelper implements queries {
-    private static  final int DB_VERSION  = 2;
-    private static  final String DB_NAME = "cashDB.db";
-    private static  final String[] BUDGET_TABLE_COLUMNS = {"ID","name","startDate","endDate","startBalance","balance"};
-    private static  final String[] CATEGORY_TABLE_COLUMNS = {"ID","name","budgetID","limitAmount"};
-    private static  final String[] EXPENSE_TABLE_COLUMNS = {"ID","label","amount","categoryID","date"};
-    private static  final String[] USER_TABLE_COLUMNS = {"ID","name","phone","gender"};
+    private static final int DB_VERSION = 2;
+    private static final String DB_NAME = "cashDB.db";
+    private static final String[] BUDGET_TABLE_COLUMNS = {"ID", "name", "startDate", "endDate", "startBalance", "balance"};
+    private static final String[] CATEGORY_TABLE_COLUMNS = {"ID", "name", "budgetID", "limitAmount"};
+    private static final String[] EXPENSE_TABLE_COLUMNS = {"ID", "label", "amount", "categoryID", "date"};
+    private static final String[] USER_TABLE_COLUMNS = {"ID", "name", "phone", "gender"};
 
     public DB_Helper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE budget(ID INTEGER PRIMARY KEY,name TEXT,startDate TEXT,endDate TEXT,startBalance REAL, balance REAL)");
@@ -48,7 +47,7 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     public User getUser(int id) {
 
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("user", USER_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("user", USER_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
         return User.buildFromCursor(cursor);
     }
@@ -57,45 +56,46 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     public void saveUser(User user) {
         ContentValues contentValues = user.getContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        db.insert("user",null,contentValues);
+
+        db.insert("user", null, contentValues);
 
     }
 
     @Override
     public Budget[] getAllBudgets() {
-        SQLiteDatabase db =getReadableDatabase();
-        Cursor cursor = db.rawQuery(QueryBuilder.selectAll("budget"),null);
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(QueryBuilder.selectAll("budget"), null);
         ArrayList<Budget> budgets = new ArrayList<>();
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             budgets.add(Budget.buildFromCursor(cursor));
             cursor.moveToNext();
         }
         Budget[] budgetsArr = new Budget[budgets.size()];
         budgetsArr = budgets.toArray(budgetsArr);
-        return budgetsArr ;
+        return budgetsArr;
     }
 
     @Override
     public Category[] getCategoriesForBudget(int id) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "budgetID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "budgetID = ?", new String[]{id + ""}, null, null, null);
         ArrayList<Category> categories = new ArrayList<>();
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             categories.add(Category.buildFromCursor(cursor));
             cursor.moveToNext();
         }
         Category[] categoriesArr = new Category[categories.size()];
         categoriesArr = categories.toArray(categoriesArr);
-        return categoriesArr ;
+        return categoriesArr;
     }
 
 
     @Override
     public Budget getBudget(int id) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("budget", BUDGET_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("budget", BUDGET_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
         return Budget.buildFromCursor(cursor);
 
@@ -105,15 +105,15 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     public void createBudget(Budget budget) {
         ContentValues contentValues = budget.getContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        db.insert("budget",null,contentValues);
+        db.insert("budget", null, contentValues);
     }
 
     @Override
     public Budget removeBudget(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query("budget", BUDGET_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("budget", BUDGET_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
-        db.delete("budget", "ID = ?", new String[]{id+""});
+        db.delete("budget", "ID = ?", new String[]{id + ""});
         return Budget.buildFromCursor(cursor);
     }
 
@@ -121,29 +121,29 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     public void createCategory(Category category) {
         ContentValues contentValues = category.getContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        db.insert("category",null,contentValues);
+        db.insert("category", null, contentValues);
 
     }
 
     @Override
     public Category[] getAllCategories() {
-        SQLiteDatabase db =getReadableDatabase();
-        Cursor cursor = db.rawQuery(QueryBuilder.selectAll("category"),null);
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(QueryBuilder.selectAll("category"), null);
         ArrayList<Category> categories = new ArrayList<>();
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             categories.add(Category.buildFromCursor(cursor));
             cursor.moveToNext();
         }
         Category[] categoriesArr = new Category[categories.size()];
         categoriesArr = categories.toArray(categoriesArr);
-        return categoriesArr ;
+        return categoriesArr;
     }
 
     @Override
     public Category getCategory(int id) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
         return Category.buildFromCursor(cursor);
 
@@ -152,9 +152,9 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     @Override
     public Category removeCategory(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("category", CATEGORY_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
-        db.delete("category", "ID = ?", new String[]{id+""});
+        db.delete("category", "ID = ?", new String[]{id + ""});
         return Category.buildFromCursor(cursor);
     }
 
@@ -162,28 +162,28 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     public void createExpense(Expense expense) {
         ContentValues contentValues = expense.getContentValues();
         SQLiteDatabase db = getWritableDatabase();
-        db.insert("expense",null,contentValues);
+        db.insert("expense", null, contentValues);
     }
 
     @Override
     public Expense[] getAllExpenses() {
-        SQLiteDatabase db =getReadableDatabase();
-        Cursor cursor = db.rawQuery(QueryBuilder.selectAll("expense"),null);
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(QueryBuilder.selectAll("expense"), null);
         ArrayList<Expense> expenses = new ArrayList<>();
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             expenses.add(Expense.buildFromCursor(cursor));
             cursor.moveToNext();
         }
         Expense[] expensesArr = new Expense[expenses.size()];
         expensesArr = expenses.toArray(expensesArr);
-        return expensesArr ;
+        return expensesArr;
     }
 
     @Override
     public Expense getExpense(int id) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
         return Expense.buildFromCursor(cursor);
     }
@@ -191,29 +191,29 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     @Override
     public Expense removeExpense(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "ID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "ID = ?", new String[]{id + ""}, null, null, null);
         cursor.moveToFirst();
-        db.delete("expense", "ID = ?", new String[]{id+""});
+        db.delete("expense", "ID = ?", new String[]{id + ""});
         return Expense.buildFromCursor(cursor);
     }
 
     @Override
     public Expense[] getAllExpensesForCategory(int id) {
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "categoryID = ?", new String[] {id+"" }, null, null, null);
+        Cursor cursor = db.query("expense", EXPENSE_TABLE_COLUMNS, "categoryID = ?", new String[]{id + ""}, null, null, null);
         ArrayList<Expense> expenses = new ArrayList<>();
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             expenses.add(Expense.buildFromCursor(cursor));
             cursor.moveToNext();
         }
         Expense[] expensesArr = new Expense[expenses.size()];
         expensesArr = expenses.toArray(expensesArr);
-        return expensesArr ;
+        return expensesArr;
 
     }
 
-    public void clearDB(){
+    public void clearDB() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS user ");
         db.execSQL("DROP TABLE IF EXISTS expense ");
