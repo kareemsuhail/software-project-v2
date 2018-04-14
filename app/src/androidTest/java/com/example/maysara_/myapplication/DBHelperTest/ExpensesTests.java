@@ -54,7 +54,7 @@ public class ExpensesTests {
     }
 
     @Test
-    public void getAllCategories() {
+    public void getAllExpenses() {
         for (int i = 1; i < expenseNumber + 1; i++) {
             createExpensesInstance(i);
         }
@@ -97,7 +97,6 @@ public class ExpensesTests {
     private void createExpensesInstance(int categoryId) {
         helper.createBudget(new Budget());
         helper.createCategory(new Category("category", budgetId, 10));
-
         Expense expense = new Expense(label, amount, categoryId, date);
         helper.createExpense(expense);
     }

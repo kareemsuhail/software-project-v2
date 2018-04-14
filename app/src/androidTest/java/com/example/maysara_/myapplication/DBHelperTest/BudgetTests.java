@@ -62,11 +62,6 @@ public class BudgetTests {
         assertEquals(budgetsNumber, budgets.length);
     }
 
-    @Test
-    public void checkRelatedCategories() {
-        createBudgetInstance();
-    }
-
     private void createBudgetInstance() {
         Budget budget = new Budget(budgetName, startDate, endDate, startBalance, balance);
         helper.createBudget(budget);
