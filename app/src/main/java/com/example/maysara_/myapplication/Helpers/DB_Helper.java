@@ -28,10 +28,10 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE budget(ID INTEGER PRIMARY KEY,name TEXT,startDate TEXT,endDate TEXT,startBalance REAL, balance REAL)");
-        db.execSQL("CREATE TABLE category(ID INTEGER PRIMARY KEY,name TEXT,budgetID INTEGER ,limitAmount REAl ,FOREIGN KEY(budgetID) REFERENCES budget(ID) ON DELETE CASCADE)");
-        db.execSQL("CREATE TABLE expense(ID INTEGER PRIMARY KEY,label TEXT,categoryID INTEGER ,date TEXT ,amount REAl ,FOREIGN KEY(categoryID) REFERENCES category(ID) ON DELETE CASCADE)");
-        db.execSQL("CREATE TABLE User(ID INTEGER PRIMARY KEY,name TEXT,phone TEXT, gender REAL)");
+        db.execSQL("CREATE TABLE budget(ID INTEGER PRIMARY KEY,name TEXT UNIQUE,startDate TEXT,endDate TEXT,startBalance REAL, balance REAL)");
+        db.execSQL("CREATE TABLE category(ID INTEGER PRIMARY KEY,name TEXT UNIQUE,budgetID INTEGER ,limitAmount REAl ,FOREIGN KEY(budgetID) REFERENCES budget(ID) ON DELETE CASCADE)");
+        db.execSQL("CREATE TABLE expense(ID INTEGER PRIMARY KEY,label TEXT UNIQUE,categoryID INTEGER ,date TEXT ,amount REAl ,FOREIGN KEY(categoryID) REFERENCES category(ID) ON DELETE CASCADE)");
+        db.execSQL("CREATE TABLE User(ID INTEGER PRIMARY KEY,name TEXT UNIQUE,phone TEXT, gender REAL)");
     }
 
     @Override
@@ -114,9 +114,14 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
 
     @Override
     public void createBudget(Budget budget) {
-        ContentValues contentValues = budget.getContentValues();
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert("budget", null, contentValues);
+        try {
+            ContentValues contentValues = budget.getContentValues();
+            SQLiteDatabase db = getWritableDatabase();
+            db.insert("budget", null, contentValues);
+        }catch (Exception ex){
+
+        }
+
     }
 
     @Override
@@ -131,9 +136,14 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
 
     @Override
     public void createCategory(Category category) {
-        ContentValues contentValues = category.getContentValues();
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert("category", null, contentValues);
+        try {
+            ContentValues contentValues = category.getContentValues();
+            SQLiteDatabase db = getWritableDatabase();
+            db.insert("category", null, contentValues);
+        }catch (Exception ex){
+
+        }
+
 
     }
 
@@ -172,9 +182,14 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
 
     @Override
     public void createExpense(Expense expense) {
-        ContentValues contentValues = expense.getContentValues();
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert("expense", null, contentValues);
+        try {
+            ContentValues contentValues = expense.getContentValues();
+            SQLiteDatabase db = getWritableDatabase();
+            db.insert("expense", null, contentValues);
+        }catch (Exception ex){
+
+        }
+
     }
 
     @Override
