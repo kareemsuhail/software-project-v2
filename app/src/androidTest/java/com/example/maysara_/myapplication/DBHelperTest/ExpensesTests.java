@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 @RunWith(AndroidJUnit4.class)
-public class ExpensesTest {
+public class ExpensesTests {
 
     private static final String label = "expenses";
     private static final double amount = 10.111;

@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNull;
 
 
 @RunWith(AndroidJUnit4.class)
-public class BudgetTest {
+public class BudgetTests {
 
     private static final String budgetName = "budget";
     private static final String startDate = "1/1/2019";

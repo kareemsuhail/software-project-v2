@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
-public class UserTseting {
+public class UserTests {
     private static final String userName = "testUser";
     private static final int userGender = 1;
     private static final String userPhoneNumber = "1231234435435";

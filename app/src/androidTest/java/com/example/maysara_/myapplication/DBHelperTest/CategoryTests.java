@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 @RunWith(AndroidJUnit4.class)
-public class CategoryTest {
+public class CategoryTests {
 
     private static final String categoryName = "category";
     private static final int limitAmount = 10;
