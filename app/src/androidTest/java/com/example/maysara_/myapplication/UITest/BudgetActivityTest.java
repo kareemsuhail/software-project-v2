@@ -12,6 +12,7 @@ import com.example.maysara_.myapplication.Activities.BudgetActivity;
 import com.example.maysara_.myapplication.Activities.ProfileActivity;
 import com.example.maysara_.myapplication.Helpers.DB_Helper;
 import com.example.maysara_.myapplication.Helpers.SharedPref;
+import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.R;
 
 import org.junit.After;
@@ -54,6 +55,14 @@ public class BudgetActivityTest {
 
         onView(withId(R.id.addBudget)).perform(click());
         onView(withId(R.id.newBudgetName)).check(matches(isDisplayed()));
+
+    }
+    public void checkIfAddBudgetAddsItemToTheList(){
+        onView(withId(R.id.addBudget)).perform(click());
+        onView(withId(R.id.newBudgetName)).perform(typeText("budget1"));
+        onView(withId(R.id.newBudgetBalance)).perform(typeText(String.valueOf("300")));
+        onView(withId(R.id.addNewBudget)).perform(click());
+
 
     }
     @After
