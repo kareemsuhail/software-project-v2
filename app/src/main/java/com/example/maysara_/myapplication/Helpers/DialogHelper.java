@@ -58,6 +58,7 @@ public class DialogHelper {
                 db_helper.createBudget(newBudget);
                 budgets.add(newBudget);
                 budgetList.invalidate();
+                budgetList.getAdapter().notifyDataSetChanged();
                 dialog.dismiss();
             }
         });

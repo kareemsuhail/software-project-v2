@@ -72,6 +72,7 @@ public class BudgetActivity extends AppCompatActivity {
 
     private void showDialog() {
         DialogHelper helper = new DialogHelper(this, "Create new Budget", "add_new_budget");
+
         helper.createBudgetDialog(budgets, budgetList);
     }
 }
