@@ -3,6 +3,7 @@ package com.example.maysara_.myapplication.Helpers;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,10 @@ import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.Models.Category;
 import com.example.maysara_.myapplication.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DialogHelper {
 
@@ -48,13 +52,25 @@ public class DialogHelper {
             public void onClick(View v) {
                 EditText nameEd = dialog.findViewById(R.id.newBudgetName);
                 EditText balanceEd = dialog.findViewById(R.id.newBudgetBalance);
+                EditText startDateText = dialog.findViewById(R.id.start_date);
+                EditText endDateText = dialog.findViewById(R.id.end_date);
                 if (!validateInput(nameEd, balanceEd)) {
                     DialogHelper.displayError("Please enter valid data", context);
                     return;
                 }
                 String name = nameEd.getText().toString();
                 int balance = Integer.parseInt(balanceEd.getText().toString());
-                Budget newBudget = new Budget(name, "", "", balance, balance);
+                String start_date = startDateText.getText().toString();
+                String end_date = endDateText.getText().toString();
+                Log.i("start_date","start date is: "+start_date);
+                try {
+                    new SimpleDateFormat("dd/mm/yy").parse(start_date);
+                     new SimpleDateFormat("dd/mm/yy").parse(end_date);
+                } catch (ParseException e) {
+                    DialogHelper.displayError("Please enter valid date", context);
+                    return;
+                }
+                Budget newBudget = new Budget(name, start_date, end_date, balance, balance);
                 db_helper.createBudget(newBudget);
                 budgets.add(newBudget);
                 budgetList.invalidate();
