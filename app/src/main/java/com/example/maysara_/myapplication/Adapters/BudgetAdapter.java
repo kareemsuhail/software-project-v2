@@ -31,6 +31,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         final ViewHolder holder = new ViewHolder(view);
         ImageView editBudget = (ImageView) view.findViewById(R.id.EditBudget) ;
         ImageView addCategoryToBudget = (ImageView) view.findViewById(R.id.addCategoryToBudget) ;
+        ImageView deleteBudget = (ImageView) view.findViewById(R.id.deleteBudget) ;
         addCategoryToBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,6 +42,12 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 BudgetActivity.moveToEditBudget(context, budgets.get(holder.getAdapterPosition()).getId());
+            }
+        });
+        deleteBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BudgetActivity.deleteBudget(context, budgets.get(holder.getAdapterPosition()).getId());
             }
         });
 //        view.setOnClickListener(new View.OnClickListener() {

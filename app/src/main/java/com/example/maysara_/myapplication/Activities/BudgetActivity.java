@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.maysara_.myapplication.Adapters.BudgetAdapter;
 import com.example.maysara_.myapplication.Helpers.DB_Helper;
@@ -39,6 +40,12 @@ public class BudgetActivity extends AppCompatActivity {
         Intent goToNextActivity = new Intent(context, EditBudgetActivity.class);
         goToNextActivity.putExtra("budget", budget);
         context.startActivity(goToNextActivity);
+    }
+    public static void deleteBudget(Context context, int budget) {
+        DB_Helper db_helper = new DB_Helper(context);
+        db_helper.removeBudget(budget);
+        Toast toast = Toast.makeText(context,"budget has been deleted",Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     @Override

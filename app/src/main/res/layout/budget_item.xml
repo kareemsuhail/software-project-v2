@@ -36,6 +36,13 @@
         android:layout_width="325dp"
         android:layout_height="42dp"
         android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/deleteBudget"
+            android:layout_width="82dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/holo_orange_dark"
+            app:srcCompat="@android:drawable/ic_delete" />
 
         <ImageView
             android:id="@+id/EditBudget"
@@ -43,7 +50,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@android:color/holo_orange_dark"
-            app:srcCompat="@android:drawable/ic_menu_revert" />
+            app:srcCompat="@android:drawable/ic_menu_edit" />
 
         <ImageView
             android:id="@+id/addCategoryToBudget"
@@ -52,6 +59,7 @@
             android:layout_weight="1"
             android:background="@android:color/holo_orange_dark"
             app:srcCompat="@android:drawable/ic_input_add" />
+
     </LinearLayout>
 
 </LinearLayout>
