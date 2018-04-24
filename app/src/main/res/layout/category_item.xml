@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="5dp">
 
     <TextView
         android:id="@+id/categoryName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:text="CategoryName"
         android:textAlignment="center"
         android:textSize="20sp" />
@@ -27,31 +27,45 @@
         android:id="@+id/categoryLimit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:text="100$"
         android:textAlignment="center"
         android:textSize="20sp" />
 
     <LinearLayout
-        android:layout_width="324dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/imageButton4"
-            android:layout_width="176dp"
+        <ImageView
+            android:id="@+id/deleteCategory"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight=".3"
             android:background="@android:color/holo_orange_dark"
-            app:srcCompat="@android:drawable/ic_menu_revert" />
+            app:srcCompat="@android:drawable/ic_delete"
+            android:padding="10dp"
+            />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="178dp"
+        <ImageView
+            android:id="@+id/editCategory"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight=".3"
             android:background="@android:color/holo_orange_dark"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:padding="10dp"
+            />
+
+        <ImageView
+            android:id="@+id/addExpenseToCategory"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".3"
+            android:background="@android:color/holo_orange_dark"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:padding="10dp"
+            />
+
     </LinearLayout>
 
 </LinearLayout>

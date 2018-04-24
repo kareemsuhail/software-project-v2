@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -57,7 +58,8 @@ public class CategoriesActivity extends AppCompatActivity {
         categories = new ArrayList<>(Arrays.asList(db_helper.getCategoriesForBudget(budgetId)));
 
         CategoryAdapter adapter = new CategoryAdapter(this, categories);
-        categoryList.setLayoutManager(new LinearLayoutManager(this));
+        //categoryList.setLayoutManager(new LinearLayoutManager(this));
+        categoryList.setLayoutManager(new GridLayoutManager(this, 2));
         categoryList.setAdapter(adapter);
 
         addCategory.setOnClickListener(new View.OnClickListener() {
