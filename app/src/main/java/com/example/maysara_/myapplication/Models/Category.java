@@ -4,18 +4,20 @@ package com.example.maysara_.myapplication.Models;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-public class Category  {
+public class Category {
 
     private int id;
     private String name;
     private int budgetId;
     private int limitAmount;
-    public Category(){
+
+    public Category() {
 
     }
+
     public Category(String name, int budget, int limitAmount) {
         this.name = name;
-        this.budgetId = budget ;
+        this.budgetId = budget;
         this.limitAmount = limitAmount;
     }
 
@@ -25,20 +27,25 @@ public class Category  {
         this.budgetId = budgetId;
         this.limitAmount = limitAmount;
     }
-    public ContentValues getContentValues(){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name",this.name);
-        contentValues.put("budgetId",this.budgetId);
-        contentValues.put("limitAmount",this.limitAmount);
-        return contentValues ;
+
+    public static Category buildFromCursor(Cursor cursor) {
+        if(cursor.isAfterLast()){
+            return null;
+        }
+        int id = cursor.getInt(cursor.getColumnIndex("ID"));
+        String name = cursor.getString(cursor.getColumnIndex("name"));
+        int budgetId = cursor.getInt(cursor.getColumnIndex("budgetID"));
+        int limitAmount = cursor.getInt(cursor.getColumnIndex("limitAmount"));
+        return new Category(id, name, budgetId, limitAmount);
 
     }
-    public static Category buildFromCursor(Cursor cursor){
-        int id = cursor.getInt(cursor.getColumnIndex("ID"));
-        String name  = cursor.getString(cursor.getColumnIndex("name"));
-        int budgetId  = cursor.getInt(cursor.getColumnIndex("budgetID"));
-        int limitAmount  = cursor.getInt(cursor.getColumnIndex("limitAmount"));
-        return new Category(id, name,budgetId,limitAmount);
+
+    public ContentValues getContentValues() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", this.name);
+        contentValues.put("budgetId", this.budgetId);
+        contentValues.put("limitAmount", this.limitAmount);
+        return contentValues;
 
     }
 

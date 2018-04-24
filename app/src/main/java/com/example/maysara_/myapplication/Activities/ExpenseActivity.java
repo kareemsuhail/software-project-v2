@@ -1,13 +1,12 @@
 package com.example.maysara_.myapplication.Activities;
 
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.example.maysara_.myapplication.Helpers.DB_Helper;
-import com.example.maysara_.myapplication.Helpers.DialogHelper;
 import com.example.maysara_.myapplication.Models.Expense;
 import com.example.maysara_.myapplication.R;
 import com.facebook.stetho.Stetho;
@@ -19,7 +18,7 @@ import java.util.Arrays;
 import okhttp3.OkHttpClient;
 
 public class ExpenseActivity extends AppCompatActivity {
-    private DB_Helper db_helper ;
+    private DB_Helper db_helper;
     private ArrayList<Expense> expenses;
     private RecyclerView expensesList;
     private int categoryID;
@@ -42,8 +41,8 @@ public class ExpenseActivity extends AppCompatActivity {
         expenses = new ArrayList<>(Arrays.asList(db_helper.getAllExpensesForCategory(categoryID)));
 
 
-
     }
+
     private void showDialog() {
 
     }

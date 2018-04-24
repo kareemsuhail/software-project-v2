@@ -3,17 +3,15 @@ package com.example.maysara_.myapplication.Models;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-
-import java.util.Date;
-
-public class Budget  {
-    private int id ;
+public class Budget {
+    private int id;
     private String name;
     private String startDate;
     private String endDate;
     private float startBalance;
     private float balance;
-    public Budget(){
+
+    public Budget() {
 
     }
 
@@ -34,26 +32,31 @@ public class Budget  {
         this.balance = balance;
     }
 
-    public ContentValues getContentValues(){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name",this.name);
-        contentValues.put("startDate",this.startDate);
-        contentValues.put("endDate",this.endDate);
-        contentValues.put("startBalance",this.startBalance);
-        contentValues.put("balance",this.balance);
-        return contentValues ;
-
-    }
-    public static Budget buildFromCursor(Cursor cursor){
+    public static Budget buildFromCursor(Cursor cursor) {
+        if(cursor.isAfterLast()){
+           return null;
+        }
         int id = cursor.getInt(cursor.getColumnIndex("ID"));
-        String name  = cursor.getString(cursor.getColumnIndex("name"));
-        String startDate  = cursor.getString(cursor.getColumnIndex("startDate"));
-        String endDate  = cursor.getString(cursor.getColumnIndex("endDate"));
+        String name = cursor.getString(cursor.getColumnIndex("name"));
+        String startDate = cursor.getString(cursor.getColumnIndex("startDate"));
+        String endDate = cursor.getString(cursor.getColumnIndex("endDate"));
         float startBalance = cursor.getFloat(cursor.getColumnIndex("startBalance"));
         float balance = cursor.getFloat(cursor.getColumnIndex("balance"));
-        return new Budget(id, name,startDate,endDate,startBalance,balance);
+        return new Budget(id, name, startDate, endDate, startBalance, balance);
 
     }
+
+    public ContentValues getContentValues() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name", this.name);
+        contentValues.put("startDate", this.startDate);
+        contentValues.put("endDate", this.endDate);
+        contentValues.put("startBalance", this.startBalance);
+        contentValues.put("balance", this.balance);
+        return contentValues;
+
+    }
+
     public String getName() {
         return name;
     }

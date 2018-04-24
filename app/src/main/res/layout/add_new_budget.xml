@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical">
+
     <EditText
         android:id="@+id/newBudgetName"
         android:layout_width="273dp"
@@ -26,7 +27,6 @@
 
     <EditText
         android:id="@+id/newBudgetBalance"
-        android:hint="@string/enter_budget_balance"
         android:layout_width="273dp"
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
@@ -36,6 +36,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/enter_budget_balance"
 
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -65,11 +66,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.607" />
-
-
-
-
-
 
 
 </LinearLayout>

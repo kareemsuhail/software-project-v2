@@ -13,7 +13,6 @@ import com.example.maysara_.myapplication.Models.Category;
 import com.example.maysara_.myapplication.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class DialogHelper {
 
@@ -59,6 +58,7 @@ public class DialogHelper {
                 db_helper.createBudget(newBudget);
                 budgets.add(newBudget);
                 budgetList.invalidate();
+                budgetList.getAdapter().notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
