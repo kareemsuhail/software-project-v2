@@ -18,28 +18,21 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="Categories"
+                />
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/category_list"
             android:layout_width="match_parent"
-            android:layout_height="393dp"
+            android:layout_height="match_parent"
             android:layout_below="@id/bar"
             android:layout_marginTop="56dp" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="52dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="My Categories"
-            android:textColor="@android:color/background_light"
-            android:textSize="30sp" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton

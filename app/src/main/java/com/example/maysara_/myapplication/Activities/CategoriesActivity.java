@@ -46,7 +46,6 @@ public class CategoriesActivity extends AppCompatActivity {
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Categories");
         setSupportActionBar(toolbar);
 
         db_helper = new DB_Helper(this);
