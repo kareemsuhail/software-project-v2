@@ -60,8 +60,6 @@ public class BudgetActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_budget);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("Budgets");
-
         db_helper = new DB_Helper(this);
 
         budgetList = findViewById(R.id.budget_list);
