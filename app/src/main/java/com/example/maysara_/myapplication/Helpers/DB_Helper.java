@@ -2,11 +2,13 @@ package com.example.maysara_.myapplication.Helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.maysara_.myapplication.Activities.BudgetActivity;
 import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.Models.Category;
 import com.example.maysara_.myapplication.Models.Expense;
@@ -132,6 +134,18 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
         Budget temp = Budget.buildFromCursor(cursor);
         db.delete("budget", "ID = ?", new String[]{id + ""});
         return temp ;
+    }
+
+    @Override
+    public void updateBudget(Budget budget) {
+        int id = budget.getId();
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        db.update("budget", budget.getContentValues(), "ID"+ " = ?",
+                new String[] { String.valueOf(budget.getId()) });
+
+
     }
 
     @Override

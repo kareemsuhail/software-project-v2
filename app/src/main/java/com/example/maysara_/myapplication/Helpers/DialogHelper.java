@@ -80,6 +80,41 @@ public class DialogHelper {
         });
         dialog.show();
     }
+    public void editBudgetDialog(final ArrayList<Budget> budgets, final RecyclerView budgetList) {
+        Button dialogButton = dialog.findViewById(R.id.EditBudget);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText nameEd = dialog.findViewById(R.id.newBudgetName);
+                EditText balanceEd = dialog.findViewById(R.id.newBudgetBalance);
+                EditText startDateText = dialog.findViewById(R.id.start_date);
+                EditText endDateText = dialog.findViewById(R.id.end_date);
+                if (!validateInput(nameEd, balanceEd)) {
+                    DialogHelper.displayError("Please enter valid data", context);
+                    return;
+                }
+                String name = nameEd.getText().toString();
+                int balance = Integer.parseInt(balanceEd.getText().toString());
+                String start_date = startDateText.getText().toString();
+                String end_date = endDateText.getText().toString();
+                Log.i("start_date","start date is: "+start_date);
+                try {
+                    new SimpleDateFormat("dd/mm/yy").parse(start_date);
+                    new SimpleDateFormat("dd/mm/yy").parse(end_date);
+                } catch (ParseException e) {
+                    DialogHelper.displayError("Please enter valid date", context);
+                    return;
+                }
+                Budget newBudget = new Budget(name, start_date, end_date, balance, balance);
+                db_helper.createBudget(newBudget);
+                budgets.add(newBudget);
+                budgetList.invalidate();
+                budgetList.getAdapter().notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
     public void createCategoryDialog(final ArrayList<Category> categories, final RecyclerView categoryList, final int budgetId) {
         Button dialogButton = dialog.findViewById(R.id.addNewCategory);

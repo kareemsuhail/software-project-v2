@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.maysara_.myapplication.Activities.BudgetActivity;
@@ -28,12 +29,26 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.budget_item, null);
         final ViewHolder holder = new ViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
+        ImageView editBudget = (ImageView) view.findViewById(R.id.EditBudget) ;
+        ImageView addCategoryToBudget = (ImageView) view.findViewById(R.id.addCategoryToBudget) ;
+        addCategoryToBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BudgetActivity.moveToCategories(context, budgets.get(holder.getAdapterPosition()).getId());
             }
         });
+        editBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BudgetActivity.moveToEditBudget(context, budgets.get(holder.getAdapterPosition()).getId());
+            }
+        });
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                BudgetActivity.moveToCategories(context, budgets.get(holder.getAdapterPosition()).getId());
+//            }
+//        });
         return holder;
     }
 

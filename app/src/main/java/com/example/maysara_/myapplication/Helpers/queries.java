@@ -19,7 +19,7 @@ interface queries {
     void createBudget(Budget budget);
 
     Budget removeBudget(int id);
-
+    void updateBudget(Budget budget);
     void createCategory(Category category);
 
     Category[] getAllCategories();

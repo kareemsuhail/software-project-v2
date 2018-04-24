@@ -35,6 +35,11 @@ public class BudgetActivity extends AppCompatActivity {
         goToNextActivity.putExtra("budget", budget);
         context.startActivity(goToNextActivity);
     }
+    public static void moveToEditBudget(Context context, int budget) {
+        Intent goToNextActivity = new Intent(context, EditBudgetActivity.class);
+        goToNextActivity.putExtra("budget", budget);
+        context.startActivity(goToNextActivity);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

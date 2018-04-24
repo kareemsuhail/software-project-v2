@@ -38,7 +38,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/EditBudget"
             android:layout_width="82dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -46,7 +46,7 @@
             app:srcCompat="@android:drawable/ic_menu_revert" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/addCategoryToBudget"
             android:layout_width="81dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
