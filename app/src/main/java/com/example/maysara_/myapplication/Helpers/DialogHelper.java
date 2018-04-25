@@ -1,11 +1,13 @@
 package com.example.maysara_.myapplication.Helpers;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,9 +18,10 @@ import com.example.maysara_.myapplication.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
-public class DialogHelper {
+public class DialogHelper implements DatePickerDialog.OnDateSetListener {
 
     private Context context;
     private Dialog dialog;
@@ -52,8 +55,8 @@ public class DialogHelper {
             public void onClick(View v) {
                 EditText nameEd = dialog.findViewById(R.id.newBudgetName);
                 EditText balanceEd = dialog.findViewById(R.id.newBudgetBalance);
-                EditText startDateText = dialog.findViewById(R.id.start_date);
-                EditText endDateText = dialog.findViewById(R.id.end_date);
+                EditText startDateText = (EditText)dialog.findViewById(R.id.start_date);
+                EditText endDateText = (EditText)dialog.findViewById(R.id.end_date);
                 if (!validateInput(nameEd, balanceEd)) {
                     DialogHelper.displayError("Please enter valid data", context);
                     return;
@@ -62,6 +65,25 @@ public class DialogHelper {
                 int balance = Integer.parseInt(balanceEd.getText().toString());
                 String start_date = startDateText.getText().toString();
                 String end_date = endDateText.getText().toString();
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+                    }
+                };
+                final DatePickerDialog datePickerDialog = new DatePickerDialog(
+                        context, listener, calendar.YEAR, calendar.MONTH, calendar.DAY_OF_MONTH);
+                startDateText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus) {
+                        if(hasFocus) {
+                            Log.i("start_date","start date was clicked");
+                            datePickerDialog.show();
+                        }
+                    }
+                });
+
                 Log.i("start_date","start date is: "+start_date);
                 try {
                     new SimpleDateFormat("dd/mm/yy").parse(start_date);
@@ -149,4 +171,8 @@ public class DialogHelper {
 
     }
 
+    @Override
+    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+
+    }
 }

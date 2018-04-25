@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class BudgetActivity extends AppCompatActivity {
         db_helper.removeBudget(budget);
         Toast toast = Toast.makeText(context,"budget has been deleted",Toast.LENGTH_SHORT);
         toast.show();
+
     }
 
     @Override
@@ -86,5 +88,9 @@ public class BudgetActivity extends AppCompatActivity {
         DialogHelper helper = new DialogHelper(this, "Create new Budget", "add_new_budget");
 
         helper.createBudgetDialog(budgets, budgetList);
+    }
+
+    public void sss(View view) {
+        Log.i("start_date","statrt date was clicked ");
     }
 }
