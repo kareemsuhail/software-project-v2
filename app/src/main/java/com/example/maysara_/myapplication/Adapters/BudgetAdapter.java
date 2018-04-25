@@ -47,7 +47,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         deleteBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BudgetActivity.deleteBudget(context, budgets.get(holder.getAdapterPosition()).getId());
+                BudgetActivity.deleteBudget(context, budgets.get(holder.getAdapterPosition()).getId(),holder.getAdapterPosition());
             }
         });
 //        view.setOnClickListener(new View.OnClickListener() {

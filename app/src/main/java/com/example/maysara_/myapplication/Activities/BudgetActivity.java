@@ -30,7 +30,8 @@ public class BudgetActivity extends AppCompatActivity {
 
     DB_Helper db_helper;
     private RecyclerView budgetList;
-    private ArrayList<Budget> budgets;
+    private static ArrayList<Budget> budgets;
+    static BudgetAdapter adapter;
 
     public static void moveToCategories(Context context, int budget) {
         Intent goToNextActivity = new Intent(context, CategoriesActivity.class);
@@ -42,9 +43,11 @@ public class BudgetActivity extends AppCompatActivity {
         goToNextActivity.putExtra("budget", budget);
         context.startActivity(goToNextActivity);
     }
-    public static void deleteBudget(Context context, int budget) {
+    public static void deleteBudget(Context context, int budget,int position) {
         DB_Helper db_helper = new DB_Helper(context);
         db_helper.removeBudget(budget);
+        budgets.remove(position);
+        adapter.notifyItemRemoved(position);
         Toast toast = Toast.makeText(context,"budget has been deleted",Toast.LENGTH_SHORT);
         toast.show();
 
@@ -60,10 +63,8 @@ public class BudgetActivity extends AppCompatActivity {
                 .addNetworkInterceptor(new StethoInterceptor())
                 .build();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Budgets");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_budget);
         setSupportActionBar(toolbar);
-
         db_helper = new DB_Helper(this);
 
         budgetList = findViewById(R.id.budget_list);
@@ -71,7 +72,7 @@ public class BudgetActivity extends AppCompatActivity {
 
         budgets = new ArrayList<>(Arrays.asList(db_helper.getAllBudgets()));
 
-        BudgetAdapter adapter = new BudgetAdapter(this, budgets);
+        adapter = new BudgetAdapter(this, budgets);
         budgetList.setLayoutManager(new LinearLayoutManager(this));
         budgetList.setAdapter(adapter);
 

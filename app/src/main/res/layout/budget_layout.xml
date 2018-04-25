@@ -15,31 +15,24 @@
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/toolbar_budget"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="Budgets"
+                />
 
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/budget_list"
             android:layout_width="match_parent"
-            android:layout_height="311dp"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/bar" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="52dp"
-            android:layout_alignBottom="@+id/bar"
-            android:layout_centerHorizontal="true"
-            android:text="My Budgets"
-            android:textColor="@android:color/background_light"
-            android:textSize="30sp" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
