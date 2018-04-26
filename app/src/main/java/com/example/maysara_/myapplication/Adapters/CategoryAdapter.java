@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.maysara_.myapplication.Activities.CategoriesActivity;
 import com.example.maysara_.myapplication.Models.Category;
 import com.example.maysara_.myapplication.R;
 
@@ -26,12 +27,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.category_item, null);
         final CategoryAdapter.ViewHolder holder = new CategoryAdapter.ViewHolder(view);
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CategoriesActivity.MoveToExpenses(context,categories.get(holder.getAdapterPosition()).getId());
-//            }
-//        });
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CategoriesActivity.MoveToExpenses(context,categories.get(holder.getAdapterPosition()).getId());
+            }
+        });
         return holder;
 
     }

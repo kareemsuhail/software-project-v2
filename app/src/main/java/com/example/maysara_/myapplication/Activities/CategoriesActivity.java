@@ -33,7 +33,7 @@ public class CategoriesActivity extends AppCompatActivity {
     private RecyclerView categoryList;
 
     public static void MoveToExpenses(Context context, int category) {
-        Intent goToNextActivity = new Intent(context, CategoriesActivity.class);
+        Intent goToNextActivity = new Intent(context, ExpenseActivity.class);
         goToNextActivity.putExtra("category", category);
         context.startActivity(goToNextActivity);
     }

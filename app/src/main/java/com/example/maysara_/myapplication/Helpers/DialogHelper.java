@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.Models.Category;
+import com.example.maysara_.myapplication.Models.Expense;
 import com.example.maysara_.myapplication.R;
 
 import java.text.ParseException;
@@ -20,7 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import java.util.InputMismatchException;
+
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 
 public class DialogHelper implements DatePickerDialog.OnDateSetListener {
 
@@ -176,7 +182,25 @@ public class DialogHelper implements DatePickerDialog.OnDateSetListener {
 
     }
 
-    public void createExpensesDialog() {
+    public void createExpensesDialog(final ArrayList<Expense> expenses, final RecyclerView expensesList, final int categoryId) {
+        Button dialogButton = dialog.findViewById(R.id.addNewExpense);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText expenseLabel = dialog.findViewById(R.id.newExpenselabel);
+                EditText expenseAmount = dialog.findViewById(R.id.newExpenseAmount);
+                String expenseNameString = expenseLabel.getText().toString();
+                double expenseAmountValue = Double.parseDouble(expenseAmount.getText().toString());
+                String expenseDate = new SimpleDateFormat("yyyy-MM-dd",   Locale.getDefault()).format(new Date());
+                Expense newExpense = new Expense(expenseNameString,expenseAmountValue,categoryId,expenseDate);
+                db_helper.createExpense(newExpense);
+                expenses.add(newExpense);
+                expensesList.invalidate();
+                expensesList.getAdapter().notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
 
     }
 
