@@ -55,6 +55,7 @@ public class BudgetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.budget_layout);
         // adding remote debug bridge by kareem
