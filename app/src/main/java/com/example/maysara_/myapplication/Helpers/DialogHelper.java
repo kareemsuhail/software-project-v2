@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.InputMismatchException;
 
 public class DialogHelper implements DatePickerDialog.OnDateSetListener {
 
@@ -86,10 +87,16 @@ public class DialogHelper implements DatePickerDialog.OnDateSetListener {
 
                 Log.i("start_date","start date is: "+start_date);
                 try {
-                    new SimpleDateFormat("dd/mm/yy").parse(start_date);
-                     new SimpleDateFormat("dd/mm/yy").parse(end_date);
+                    Date start_date_date = new SimpleDateFormat("dd/mm/yy").parse(start_date);
+                    Date end_date_date  = new SimpleDateFormat("dd/mm/yy").parse(end_date);
+                    if(start_date_date.after(end_date_date)){
+                        throw new InputMismatchException();
+                    }
                 } catch (ParseException e) {
                     DialogHelper.displayError("Please enter valid date", context);
+                    return;
+                } catch (InputMismatchException e){
+                    DialogHelper.displayError("Please end date should be after start date", context);
                     return;
                 }
                 Budget newBudget = new Budget(name, start_date, end_date, balance, balance);
@@ -123,6 +130,12 @@ public class DialogHelper implements DatePickerDialog.OnDateSetListener {
                 try {
                     new SimpleDateFormat("dd/mm/yy").parse(start_date);
                     new SimpleDateFormat("dd/mm/yy").parse(end_date);
+                    Budget newBudget = new Budget(name, start_date, end_date, balance, balance);
+                    db_helper.createBudget(newBudget);
+                    budgets.add(newBudget);
+                    budgetList.invalidate();
+                    budgetList.getAdapter().notifyDataSetChanged();
+                    dialog.dismiss();
                 } catch (ParseException e) {
                     DialogHelper.displayError("Please enter valid date", context);
                     return;
