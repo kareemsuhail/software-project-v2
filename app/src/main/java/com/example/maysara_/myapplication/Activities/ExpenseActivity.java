@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.maysara_.myapplication.Adapters.ExpenseAdapter;
 import com.example.maysara_.myapplication.Helpers.DB_Helper;
@@ -70,6 +71,7 @@ public class ExpenseActivity extends AppCompatActivity {
 
     public void showOptionsButtons()
     {
+        Toast.makeText(this, "hello its me", Toast.LENGTH_SHORT).show();
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.items_options);
         IS_ITEM_SELECTED = true ;

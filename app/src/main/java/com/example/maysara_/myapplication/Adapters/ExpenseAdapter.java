@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.maysara_.myapplication.Activities.ExpenseActivity;
 import com.example.maysara_.myapplication.Helpers.DB_Helper;
@@ -59,10 +60,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
             amount = itemView.findViewById(R.id.expenseAmount);
             category = itemView.findViewById(R.id.expenseCategory);
             date = itemView.findViewById(R.id.expenseDate);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public boolean onLongClick(View view) {
+            Toast.makeText(context, "alright", Toast.LENGTH_SHORT).show();
             ((ExpenseActivity)context).showOptionsButtons();
             ((ExpenseActivity)context).selectedItemPosition = getAdapterPosition();
             return false;
