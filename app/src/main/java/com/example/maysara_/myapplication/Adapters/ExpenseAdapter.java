@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.maysara_.myapplication.Activities.ExpenseActivity;
 import com.example.maysara_.myapplication.Helpers.DB_Helper;
 import com.example.maysara_.myapplication.Models.Expense;
 import com.example.maysara_.myapplication.R;
@@ -46,7 +47,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
         return expenses.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         TextView label;
         TextView amount;
         TextView category;
@@ -60,6 +61,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
             date = itemView.findViewById(R.id.expenseDate);
         }
 
+        @Override
+        public boolean onLongClick(View view) {
+            ((ExpenseActivity)context).showOptionsButtons();
+            ((ExpenseActivity)context).selectedItemPosition = getAdapterPosition();
+            return false;
+        }
     }
 
 }
