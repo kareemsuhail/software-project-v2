@@ -77,6 +77,19 @@ public class BudgetActivity extends AppCompatActivity {
         budgetList = findViewById(R.id.budget_list);
         FloatingActionButton addBudget = findViewById(R.id.addBudget);
 
+
+        addBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         Budget[] budgetItems = db_helper.getAllBudgets();
         budgets = new ArrayList<>(Arrays.asList(budgetItems));
 
@@ -89,13 +102,6 @@ public class BudgetActivity extends AppCompatActivity {
             total+=budgetItems[i].getBalance();
         }
         totalBudgets.setText(total + " $ ");
-        addBudget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialog();
-            }
-        });
-
     }
 
     private void showDialog() {
