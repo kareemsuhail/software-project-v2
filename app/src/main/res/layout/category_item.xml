@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="budgetName"
+        android:text="category name"
         android:textAlignment="center"
         android:textSize="25sp"
         android:textColor="@color/white"
@@ -26,14 +26,31 @@
         android:layout_height="1px"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@color/colorPrimary" />
+        android:background="@color/white" />
 
     <TextView
         android:id="@+id/categoryLimit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="budgetName"
+        android:text="category limit"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white" />
+
+    <TextView
+        android:id="@+id/categoryExpense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="totalExpense"
         android:textAlignment="center"
         android:textSize="25sp"
         android:textColor="@color/white"
@@ -52,14 +69,6 @@
             app:srcCompat="@android:drawable/ic_delete"
             />
 
-        <ImageView
-            android:id="@+id/editCategory"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight=".3"
-            android:background="@color/colorAccent"
-            app:srcCompat="@android:drawable/ic_menu_edit"
-            />
 
         <ImageView
             android:id="@+id/addExpenseToCategory"
