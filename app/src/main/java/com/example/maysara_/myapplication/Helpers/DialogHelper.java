@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.maysara_.myapplication.Activities.BudgetActivity;
 import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.Models.Category;
 import com.example.maysara_.myapplication.Models.Expense;
@@ -62,7 +63,7 @@ public class DialogHelper  {
         return text1.length() != 0 && text2.length() != 0;
     }
 
-    public void createBudgetDialog(final ArrayList<Budget> budgets, final RecyclerView budgetList) {
+    public void createBudgetDialog(final ArrayList<Budget> budgets, final RecyclerView budgetList, final TextView totalText) {
         Button dialogButton = dialog.findViewById(R.id.addNewBudget);
         final TextView startDateText = (TextView)dialog.findViewById(R.id.start_date);
         final TextView endDateText = (TextView)dialog.findViewById(R.id.end_date);
@@ -144,57 +145,23 @@ public class DialogHelper  {
                     return;
                 }
                 Budget newBudget = new Budget(name, start_date, end_date, balance, balance);
-                db_helper.createBudget(newBudget);
+                long id = db_helper.createBudget(newBudget);
+                if(id==-1){
+                    Toast.makeText(context, "Please choose another name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                newBudget.setId((int)id);
                 budgets.add(newBudget);
+                BudgetActivity.total+=newBudget.getBalance();
+                totalText.setText(BudgetActivity.total + "$");
                 budgetList.invalidate();
                 budgetList.getAdapter().notifyDataSetChanged();
+                Toast.makeText(context, "created id is "+newBudget.getId(), Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
         });
         dialog.show();
     }
-    public void editBudgetDialog(final ArrayList<Budget> budgets, final RecyclerView budgetList) {
-        Button dialogButton = dialog.findViewById(R.id.EditBudget);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText nameEd = dialog.findViewById(R.id.newBudgetName);
-                EditText balanceEd = dialog.findViewById(R.id.newBudgetBalance);
-                EditText startDateText = dialog.findViewById(R.id.start_date);
-                EditText endDateText = dialog.findViewById(R.id.end_date);
-                if (!validateInput(nameEd, balanceEd)) {
-                    DialogHelper.displayError("Please enter valid data", context);
-                    return;
-                }
-                String name = nameEd.getText().toString();
-                int balance = Integer.parseInt(balanceEd.getText().toString());
-                String start_date = startDateText.getText().toString();
-                String end_date = endDateText.getText().toString();
-                Log.i("start_date","start date is: "+start_date);
-                try {
-                    new SimpleDateFormat("dd/mm/yy").parse(start_date);
-                    new SimpleDateFormat("dd/mm/yy").parse(end_date);
-                    Budget newBudget = new Budget(name, start_date, end_date, balance, balance);
-                    db_helper.createBudget(newBudget);
-                    budgets.add(newBudget);
-                    budgetList.invalidate();
-                    budgetList.getAdapter().notifyDataSetChanged();
-                    dialog.dismiss();
-                } catch (ParseException e) {
-                    DialogHelper.displayError("Please enter valid date", context);
-                    return;
-                }
-                Budget newBudget = new Budget(name, start_date, end_date, balance, balance);
-                db_helper.createBudget(newBudget);
-                budgets.add(newBudget);
-                budgetList.invalidate();
-                budgetList.getAdapter().notifyDataSetChanged();
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
-    }
-
     public void createCategoryDialog(final ArrayList<Category> categories, final RecyclerView categoryList, final int budgetId) {
         Button dialogButton = dialog.findViewById(R.id.addNewCategory);
         dialogButton.setOnClickListener(new View.OnClickListener() {
@@ -208,10 +175,21 @@ public class DialogHelper  {
                 }
                 String name = nameEd.getText().toString();
                 int limit = Integer.parseInt(limitEd.getText().toString());
+                int startBalance = (int)db_helper.getBudget(budgetId).getStartBalance();
+                if(limit>startBalance){
+                    Toast.makeText(context, "The limit should be less than the budget balance", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Category newCategory = new Category(name, budgetId, limit);
-                db_helper.createCategory(newCategory);
+                long id = db_helper.createCategory(newCategory);
+                if(id==-1){
+                    Toast.makeText(context, "Please choose another name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                newCategory.setId((int)id);
                 categories.add(newCategory);
                 categoryList.invalidate();
+                categoryList.getAdapter().notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
@@ -230,8 +208,23 @@ public class DialogHelper  {
                 String expenseNameString = expenseLabel.getText().toString();
                 double expenseAmountValue = Double.parseDouble(expenseAmount.getText().toString());
                 String expenseDate = new SimpleDateFormat("yyyy-MM-dd",   Locale.getDefault()).format(new Date());
+                int totalExpense = 0;
+                for(int i =0;i<expenses.size();i++){
+                    totalExpense+=expenses.get(i).getAmount();
+                }
+                totalExpense+=expenseAmountValue;
+                int cateLimit = db_helper.getCategory(categoryId).getLimit();
+                if(totalExpense>cateLimit){
+                    Toast.makeText(context, "Category Limit exceeded", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Expense newExpense = new Expense(expenseNameString,expenseAmountValue,categoryId,expenseDate);
-                db_helper.createExpense(newExpense);
+                long id = db_helper.createExpense(newExpense);
+                if(id==-1){
+                    Toast.makeText(context, "Please choose another name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                newExpense.setId((int)id);
                 expenses.add(newExpense);
                 expensesList.invalidate();
                 expensesList.getAdapter().notifyDataSetChanged();

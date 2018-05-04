@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.maysara_.myapplication.Activities.CategoriesActivity;
 import com.example.maysara_.myapplication.Models.Category;
@@ -25,14 +26,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.category_item, null);
+        View view = inflater.inflate(R.layout.category_item, parent,false);
         final CategoryAdapter.ViewHolder holder = new CategoryAdapter.ViewHolder(view);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CategoriesActivity.MoveToExpenses(context,categories.get(holder.getAdapterPosition()).getId());
-            }
-        });
         return holder;
 
     }
@@ -49,7 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView name;
         TextView limit;
 
@@ -57,7 +52,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             super(itemView);
             name = itemView.findViewById(R.id.categoryName);
             limit = itemView.findViewById(R.id.categoryLimit);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(context, categories.get(getAdapterPosition()).getId() + "", Toast.LENGTH_SHORT).show();
+            CategoriesActivity.MoveToExpenses(context,categories.get(getAdapterPosition()).getId());
+        }
     }
 }

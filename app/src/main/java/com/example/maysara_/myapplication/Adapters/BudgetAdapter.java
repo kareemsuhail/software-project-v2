@@ -27,7 +27,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.budget_item, null);
+        View view = inflater.inflate(R.layout.budget_item, parent,false);
         final ViewHolder holder = new ViewHolder(view);
         ImageView editBudget = (ImageView) view.findViewById(R.id.EditBudget) ;
         ImageView addCategoryToBudget = (ImageView) view.findViewById(R.id.addCategoryToBudget) ;

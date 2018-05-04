@@ -11,6 +11,10 @@ public class Budget {
     private float startBalance;
     private float balance;
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Budget() {
 
     }

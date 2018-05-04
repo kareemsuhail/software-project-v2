@@ -31,14 +31,13 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.expense_item, null);
+        View view = inflater.inflate(R.layout.expense_item,parent,false );
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.label.setText(expenses.get(position).getLabel());
-        holder.category.setText("Category: " + helper.getCategory(expenses.get(position).getCategory()).getName());
         holder.amount.setText("Amount: " + expenses.get(position).getAmount()+"");
         holder.date.setText("Date: "+expenses.get(position).getDate());
     }
@@ -51,14 +50,12 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
         TextView label;
         TextView amount;
-        TextView category;
         TextView date;
 
         ViewHolder(View itemView) {
             super(itemView);
             label = itemView.findViewById(R.id.expenseLabel);
             amount = itemView.findViewById(R.id.expenseAmount);
-            category = itemView.findViewById(R.id.expenseCategory);
             date = itemView.findViewById(R.id.expenseDate);
             itemView.setOnLongClickListener(this);
         }

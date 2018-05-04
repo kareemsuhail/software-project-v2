@@ -49,6 +49,7 @@ public class ExpenseActivity extends AppCompatActivity {
         expensesList = findViewById(R.id.expense_list);
         FloatingActionButton addExpense = findViewById(R.id.addExpense);
         categoryID = (getIntent()).getIntExtra("category", -1);
+        Toast.makeText(this, "id"+categoryID, Toast.LENGTH_SHORT).show();
         expenses = new ArrayList<>(Arrays.asList(db_helper.getAllExpensesForCategory(categoryID)));
 
         adapter = new ExpenseAdapter(this,expenses);

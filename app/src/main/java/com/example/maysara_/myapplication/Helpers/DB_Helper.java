@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.maysara_.myapplication.Activities.BudgetActivity;
 import com.example.maysara_.myapplication.Models.Budget;
@@ -64,12 +65,10 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     }
 
     @Override
-    public void saveUser(User user) {
+    public long saveUser(User user) {
         ContentValues contentValues = user.getContentValues();
         SQLiteDatabase db = getWritableDatabase();
-
-        db.insert("user", null, contentValues);
-
+        return db.insert("user", null, contentValues);
     }
 
     @Override
@@ -115,15 +114,14 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     }
 
     @Override
-    public void createBudget(Budget budget) {
+    public long createBudget(Budget budget) {
         try {
             ContentValues contentValues = budget.getContentValues();
             SQLiteDatabase db = getWritableDatabase();
-            db.insert("budget", null, contentValues);
+            return db.insert("budget", null, contentValues);
         }catch (Exception ex){
-
+            return -1;
         }
-
     }
 
     @Override
@@ -149,16 +147,14 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     }
 
     @Override
-    public void createCategory(Category category) {
+    public long createCategory(Category category) {
         try {
             ContentValues contentValues = category.getContentValues();
             SQLiteDatabase db = getWritableDatabase();
-            db.insert("category", null, contentValues);
+            return db.insert("category", null, contentValues);
         }catch (Exception ex){
-
+            return -1;
         }
-
-
     }
 
     @Override
@@ -195,15 +191,14 @@ public class DB_Helper extends SQLiteOpenHelper implements queries {
     }
 
     @Override
-    public void createExpense(Expense expense) {
+    public long createExpense(Expense expense) {
         try {
             ContentValues contentValues = expense.getContentValues();
             SQLiteDatabase db = getWritableDatabase();
-            db.insert("expense", null, contentValues);
+            return db.insert("expense", null, contentValues);
         }catch (Exception ex){
-
+            return -1;
         }
-
     }
 
     @Override

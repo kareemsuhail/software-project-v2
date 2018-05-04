@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.maysara_.myapplication.Adapters.BudgetAdapter;
@@ -32,6 +33,8 @@ public class BudgetActivity extends AppCompatActivity {
     private RecyclerView budgetList;
     private static ArrayList<Budget> budgets;
     static BudgetAdapter adapter;
+    static TextView totalBudgets;
+    public static int total = 0;
 
     public static void moveToCategories(Context context, int budget) {
         Intent goToNextActivity = new Intent(context, CategoriesActivity.class);
@@ -44,10 +47,13 @@ public class BudgetActivity extends AppCompatActivity {
         context.startActivity(goToNextActivity);
     }
     public static void deleteBudget(Context context, int budget,int position) {
+        float balanceToRemove = budgets.get(position).getBalance();
         DB_Helper db_helper = new DB_Helper(context);
         db_helper.removeBudget(budget);
         budgets.remove(position);
         adapter.notifyItemRemoved(position);
+        total-=balanceToRemove;
+        totalBudgets.setText(total + "$");
         Toast toast = Toast.makeText(context,"budget has been deleted",Toast.LENGTH_SHORT);
         toast.show();
 
@@ -71,12 +77,18 @@ public class BudgetActivity extends AppCompatActivity {
         budgetList = findViewById(R.id.budget_list);
         FloatingActionButton addBudget = findViewById(R.id.addBudget);
 
-        budgets = new ArrayList<>(Arrays.asList(db_helper.getAllBudgets()));
+        Budget[] budgetItems = db_helper.getAllBudgets();
+        budgets = new ArrayList<>(Arrays.asList(budgetItems));
 
         adapter = new BudgetAdapter(this, budgets);
         budgetList.setLayoutManager(new LinearLayoutManager(this));
         budgetList.setAdapter(adapter);
-
+        totalBudgets = findViewById(R.id.totlaBudget);
+        total = 0;
+        for(int i =0;i<budgetItems.length;i++){
+            total+=budgetItems[i].getBalance();
+        }
+        totalBudgets.setText(total + " $ ");
         addBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +101,7 @@ public class BudgetActivity extends AppCompatActivity {
     private void showDialog() {
         DialogHelper helper = new DialogHelper(this, "Create new Budget", "add_new_budget");
 
-        helper.createBudgetDialog(budgets, budgetList);
+        helper.createBudgetDialog(budgets, budgetList,totalBudgets);
     }
 
     public void sss(View view) {

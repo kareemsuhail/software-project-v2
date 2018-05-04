@@ -15,6 +15,10 @@ public class Expense {
 
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Expense(String label, double amount, int categoryId, String date) {
         this.label = label;
         this.amount = amount;

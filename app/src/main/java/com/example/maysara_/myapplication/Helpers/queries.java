@@ -8,7 +8,7 @@ import com.example.maysara_.myapplication.Models.User;
 interface queries {
     User getUser(int id);
 
-    void saveUser(User user);
+    long saveUser(User user);
 
     Budget[] getAllBudgets();
 
@@ -16,11 +16,11 @@ interface queries {
 
     Budget getBudget(int id);
 
-    void createBudget(Budget budget);
+    long createBudget(Budget budget);
 
     Budget removeBudget(int id);
     void updateBudget(Budget budget);
-    void createCategory(Category category);
+    long createCategory(Category category);
 
     Category[] getAllCategories();
 
@@ -28,7 +28,7 @@ interface queries {
 
     Category removeCategory(int id);
 
-    void createExpense(Expense expense);
+    long createExpense(Expense expense);
 
     Expense[] getAllExpenses();
 

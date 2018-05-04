@@ -21,6 +21,10 @@ public class Category {
         this.limitAmount = limitAmount;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Category(int id, String name, int budgetId, int limitAmount) {
         this.id = id;
         this.name = name;
