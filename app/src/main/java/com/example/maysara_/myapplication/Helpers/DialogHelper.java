@@ -222,7 +222,7 @@ public class DialogHelper  {
                     Toast.makeText(context, "Category Limit exceeded", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(budget.getBalance()-expenseAmountValue<=0){
+                if(budget.getBalance()-expenseAmountValue<0){
                     Toast.makeText(context, "Budget Limit exceeded", Toast.LENGTH_SHORT).show();
                     return;
                 }
