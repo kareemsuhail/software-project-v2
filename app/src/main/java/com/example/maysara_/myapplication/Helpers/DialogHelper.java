@@ -208,27 +208,42 @@ public class DialogHelper  {
                 String expenseNameString = expenseLabel.getText().toString();
                 double expenseAmountValue = Double.parseDouble(expenseAmount.getText().toString());
                 String expenseDate = new SimpleDateFormat("yyyy-MM-dd",   Locale.getDefault()).format(new Date());
+                Category cat = db_helper.getCategory(categoryId);
+                Budget budget = db_helper.getBudget(cat.getBudgetID());
+
                 int totalExpense = 0;
                 for(int i =0;i<expenses.size();i++){
                     totalExpense+=expenses.get(i).getAmount();
                 }
                 totalExpense+=expenseAmountValue;
-                int cateLimit = db_helper.getCategory(categoryId).getLimit();
+
+                int cateLimit = cat.getLimit();
                 if(totalExpense>cateLimit){
                     Toast.makeText(context, "Category Limit exceeded", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(budget.getBalance()-expenseAmountValue<=0){
+                    Toast.makeText(context, "Budget Limit exceeded", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Expense newExpense = new Expense(expenseNameString,expenseAmountValue,categoryId,expenseDate);
                 long id = db_helper.createExpense(newExpense);
                 if(id==-1){
                     Toast.makeText(context, "Please choose another name", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                budget.setBalance((float) (budget.getBalance()-expenseAmountValue));
+                db_helper.updateBudget(budget);
+
+
                 newExpense.setId((int)id);
                 expenses.add(newExpense);
                 expensesList.invalidate();
                 expensesList.getAdapter().notifyDataSetChanged();
                 dialog.dismiss();
+
             }
         });
         dialog.show();

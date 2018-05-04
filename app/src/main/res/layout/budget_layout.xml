@@ -24,43 +24,45 @@
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="Budgets"
                 />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:layout_below="@id/bar"
+                android:id="@+id/totlaLayout"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".6"
+                    android:layout_height="wrap_content"
+                    android:text="Total Budgets balance is"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:textAlignment="textStart"
+                    android:gravity="start" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight=".4"
+                    android:layout_height="wrap_content"
+                    android:text="Total Budgets balance is"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/totlaBudget"
+                    android:textAlignment="textEnd"
+                    android:gravity="end" />
+            </LinearLayout>
+
         </android.support.design.widget.AppBarLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:layout_below="@id/bar"
-            android:id="@+id/totlaLayout"
-            android:orientation="horizontal"
-            android:padding="10dp"
-            >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight=".6"
-                android:layout_height="wrap_content"
-                android:text="Total Budget is"
-                android:textSize="20sp"
-                android:textColor="@color/white"
-                android:textAlignment="textStart"
-                android:gravity="start" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight=".4"
-                android:layout_height="wrap_content"
-                android:text="Total Budget is"
-                android:textSize="25sp"
-                android:textColor="@color/colorAccent"
-                android:id="@+id/totlaBudget"
-                android:textAlignment="textEnd"
-                android:gravity="end" />
-        </LinearLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/budget_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/totlaLayout"
+            android:layout_below="@+id/bar"
             android:padding="10dp"
             />
 

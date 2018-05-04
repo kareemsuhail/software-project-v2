@@ -5,12 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.maysara_.myapplication.Activities.BudgetActivity;
 import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -50,12 +53,6 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
                 BudgetActivity.deleteBudget(context, budgets.get(holder.getAdapterPosition()).getId(),holder.getAdapterPosition());
             }
         });
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                BudgetActivity.moveToCategories(context, budgets.get(holder.getAdapterPosition()).getId());
-//            }
-//        });
         return holder;
     }
 
@@ -63,6 +60,9 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.name.setText(budgets.get(position).getName());
         holder.balance.setText(budgets.get(position).getBalance() + "$");
+        holder.startBalance.setText(budgets.get(position).getStartBalance() + "$");
+        holder.startDate.setText(budgets.get(position).getStartDate());
+        holder.endDate.setText(budgets.get(position).getEndDate());
     }
 
     @Override
@@ -73,11 +73,25 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView balance;
+        TextView startBalance;
+        TextView startDate;
+        TextView endDate;
+        Button showGraph;
 
         ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.budgetName);
             balance = itemView.findViewById(R.id.budgetBalance);
+            startBalance = itemView.findViewById(R.id.budgetStartBalance);
+            startDate = itemView.findViewById(R.id.startDate);
+            endDate = itemView.findViewById(R.id.endDate);
+            showGraph = itemView.findViewById(R.id.showGraph);
+            showGraph.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        // show graph
+                }
+            });
         }
 
     }
