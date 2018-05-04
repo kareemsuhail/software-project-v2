@@ -25,7 +25,7 @@
         android:layout_height="1px"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@color/black" />
+        android:background="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,6 +79,14 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -92,9 +100,10 @@
             android:layout_margin="10dp"
             android:text="start date"
             android:textAlignment="center"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
-            />
+        />
+
         <TextView
         android:id="@+id/endDate"
         android:layout_weight=".3"
@@ -103,7 +112,7 @@
         android:layout_margin="10dp"
         android:text="end date"
         android:textAlignment="center"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textColor="@color/white"
         />
     </LinearLayout>
