@@ -61,8 +61,8 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
         holder.name.setText(budgets.get(position).getName());
         holder.balance.setText(budgets.get(position).getBalance() + "$");
         holder.startBalance.setText(budgets.get(position).getStartBalance() + "$");
-        holder.startDate.setText(budgets.get(position).getStartDate());
-        holder.endDate.setText(budgets.get(position).getEndDate());
+        holder.startDate.setText("start date : " + budgets.get(position).getStartDate());
+        holder.endDate.setText("end date : " +budgets.get(position).getEndDate());
     }
 
     @Override
