@@ -27,15 +27,23 @@ import okhttp3.OkHttpClient;
 
 public class CategoriesActivity extends AppCompatActivity {
 
-    ArrayList<Category> categories;
+    static ArrayList<Category> categories;
     int budgetId;
     DB_Helper db_helper;
     private RecyclerView categoryList;
+    static CategoryAdapter adapter;
 
     public static void MoveToExpenses(Context context, int category) {
         Intent goToNextActivity = new Intent(context, ExpenseActivity.class);
         goToNextActivity.putExtra("category", category);
         context.startActivity(goToNextActivity);
+    }
+
+    public static void deleteCategory(Context context, int category,int position) {
+        DB_Helper db_helper = new DB_Helper(context);
+        db_helper.removeCategory(category);
+        categories.remove(position);
+        adapter.notifyItemRemoved(position);
     }
 
     @Override
@@ -55,12 +63,6 @@ public class CategoriesActivity extends AppCompatActivity {
         categoryList = findViewById(R.id.category_list);
         FloatingActionButton addCategory = findViewById(R.id.addCategory);
 
-        categories = new ArrayList<>(Arrays.asList(db_helper.getCategoriesForBudget(budgetId)));
-
-        CategoryAdapter adapter = new CategoryAdapter(this, categories);
-        //categoryList.setLayoutManager(new LinearLayoutManager(this));
-        categoryList.setLayoutManager(new GridLayoutManager(this, 2));
-        categoryList.setAdapter(adapter);
 
         addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +71,16 @@ public class CategoriesActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        categories = new ArrayList<>(Arrays.asList(db_helper.getCategoriesForBudget(budgetId)));
+        adapter = new CategoryAdapter(this, categories);
+        categoryList.setLayoutManager(new GridLayoutManager(this, 2));
+        categoryList.setAdapter(adapter);
     }
 
     private void showDialog() {
