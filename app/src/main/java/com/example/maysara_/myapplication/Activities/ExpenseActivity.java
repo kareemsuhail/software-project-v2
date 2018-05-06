@@ -33,6 +33,7 @@ public class ExpenseActivity extends AppCompatActivity {
     public int selectedItemPosition = -1 ;
     Toolbar toolbar ;
     private  boolean  IS_ITEM_SELECTED = false ;
+    String categoryname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +50,9 @@ public class ExpenseActivity extends AppCompatActivity {
         expensesList = findViewById(R.id.expense_list);
         FloatingActionButton addExpense = findViewById(R.id.addExpense);
         categoryID = (getIntent()).getIntExtra("category", -1);
-        Toast.makeText(this, "id"+categoryID, Toast.LENGTH_SHORT).show();
         expenses = new ArrayList<>(Arrays.asList(db_helper.getAllExpensesForCategory(categoryID)));
-
+        categoryname = db_helper.getCategory(categoryID).getName();
+        toolbar.setTitle("Expenses for "+categoryname);
         adapter = new ExpenseAdapter(this,expenses);
         expensesList.setLayoutManager(new LinearLayoutManager(this));
         expensesList.setAdapter(adapter);
@@ -72,13 +73,11 @@ public class ExpenseActivity extends AppCompatActivity {
 
     public void showOptionsButtons()
     {
-        Toast.makeText(this, "hello its me", Toast.LENGTH_SHORT).show();
         toolbar.getMenu().clear();
         toolbar.inflateMenu(R.menu.items_options);
         IS_ITEM_SELECTED = true ;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setBackgroundColor(this.getResources().getColor(R.color.colorAccent));
-        setTitle("");
+        toolbar.setTitle("");
     }
 
     private void showMainButtons()
@@ -89,7 +88,7 @@ public class ExpenseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         toolbar.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
         selectedItemPosition = -1 ;
-        setTitle("hello");
+        toolbar.setTitle("Expenses for "+categoryname);
     }
 
     @Override
@@ -105,6 +104,7 @@ public class ExpenseActivity extends AppCompatActivity {
             case R.id.deleteExpenseItem :
             {
                 deleteExpense(selectedItemPosition);
+                showMainButtons();
                 break;
             }
         }

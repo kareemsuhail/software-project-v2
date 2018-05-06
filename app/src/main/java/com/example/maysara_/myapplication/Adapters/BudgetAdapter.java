@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.maysara_.myapplication.Activities.BudgetActivity;
+import com.example.maysara_.myapplication.Helpers.GraphHelper;
 import com.example.maysara_.myapplication.Models.Budget;
 import com.example.maysara_.myapplication.R;
 
@@ -89,7 +90,7 @@ public class BudgetAdapter extends RecyclerView.Adapter<BudgetAdapter.ViewHolder
             showGraph.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        // show graph
+                    GraphHelper.showGraphForBudget(context,budgets.get(getAdapterPosition()).getId());
                 }
             });
         }

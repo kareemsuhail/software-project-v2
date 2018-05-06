@@ -128,6 +128,10 @@ public class DialogHelper  {
                 }
                 String name = nameEd.getText().toString();
                 int balance = Integer.parseInt(balanceEd.getText().toString());
+                if(balance==0){
+                    Toast.makeText(context, "Enter a valid Balance", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String start_date = startDateText.getText().toString();
                 String end_date = endDateText.getText().toString();
                 Log.i("start_date","start date is: "+start_date);
@@ -175,6 +179,10 @@ public class DialogHelper  {
                 }
                 String name = nameEd.getText().toString();
                 int limit = Integer.parseInt(limitEd.getText().toString());
+                if(limit==0){
+                    Toast.makeText(context, "Please enter a valid Limit", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 int startBalance = (int)db_helper.getBudget(budgetId).getStartBalance();
                 if(limit>startBalance){
                     Toast.makeText(context, "The limit should be less than the budget balance", Toast.LENGTH_SHORT).show();
@@ -210,7 +218,10 @@ public class DialogHelper  {
                 String expenseDate = new SimpleDateFormat("yyyy-MM-dd",   Locale.getDefault()).format(new Date());
                 Category cat = db_helper.getCategory(categoryId);
                 Budget budget = db_helper.getBudget(cat.getBudgetID());
-
+                if(expenseAmountValue==0){
+                    Toast.makeText(context, "please enter a valid Amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 int totalExpense = 0;
                 for(int i =0;i<expenses.size();i++){
                     totalExpense+=expenses.get(i).getAmount();
